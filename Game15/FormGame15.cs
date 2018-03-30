@@ -21,12 +21,12 @@ namespace Game15
         {
             int position = Convert.ToInt32(((Button)sender).Tag);
             ReturnButtonPosition(position).Text = position.ToString();
-            MessageBox.Show((position+1).ToString());
+            //MessageBox.Show((position+1).ToString());
         }
 
         private Button ReturnButtonPosition(int position)
         {
-            switch(position)
+            switch (position)
             {
                 case 0: return button0;
                 case 1: return button1;
@@ -45,7 +45,7 @@ namespace Game15
                 case 14: return button14;
                 case 15: return button15;
                 default: return null;
-               
+
             }
         }
     }
