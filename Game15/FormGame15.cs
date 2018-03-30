@@ -12,41 +12,80 @@ namespace Game15
 {
     public partial class FormGame15 : Form
     {
+        private Game _game;
+        private List<Button> buttonsOnForm = new List<Button>();
         public FormGame15()
         {
             InitializeComponent();
+            InitializeBattonsArray();
+            _game = new Game(4);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             int position = Convert.ToInt32(((Button)sender).Tag);
-            ReturnButtonPosition(position).Text = position.ToString();
-            //MessageBox.Show((position+1).ToString());
+            _game.Shift(position);
+            Refresh();
+            if (_game.ChekToWin())
+            {
+                MessageBox.Show("Ура! Победа!");
+                GameStart();
+            }
+           
         }
 
-        private Button ReturnButtonPosition(int position)
+  
+        private void FormGame15_Load(object sender, EventArgs e)
         {
-            switch (position)
-            {
-                case 0: return button0;
-                case 1: return button1;
-                case 2: return button2;
-                case 3: return button3;
-                case 4: return button4;
-                case 5: return button5;
-                case 6: return button6;
-                case 7: return button7;
-                case 8: return button8;
-                case 9: return button9;
-                case 10: return button10;
-                case 11: return button11;
-                case 12: return button12;
-                case 13: return button13;
-                case 14: return button14;
-                case 15: return button15;
-                default: return null;
+            GameStart();
+        }
 
+        private void menuStart_Click(object sender, EventArgs e)
+        {
+            GameStart();
+        }
+
+
+        private void GameStart()
+        {
+            _game.Start();
+            for (int i = 0; i < 100; i++)
+                _game.ShiftRandom();
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+
+            for (int position = 0; position < 16; position++)
+            {
+                int nr = _game.GetNumber(position);
+                buttonsOnForm[position].Text = nr.ToString();
+                buttonsOnForm[position].Visible = (nr > 0);
             }
         }
+
+        private void InitializeBattonsArray()
+        {
+
+            buttonsOnForm.Add(button0);
+            buttonsOnForm.Add(button1);
+            buttonsOnForm.Add(button2);
+            buttonsOnForm.Add(button3);
+            buttonsOnForm.Add(button4);
+            buttonsOnForm.Add(button5);
+            buttonsOnForm.Add(button6);
+            buttonsOnForm.Add(button7);
+            buttonsOnForm.Add(button8);
+            buttonsOnForm.Add(button9);
+            buttonsOnForm.Add(button10);
+            buttonsOnForm.Add(button11);
+            buttonsOnForm.Add(button12);
+            buttonsOnForm.Add(button13);
+            buttonsOnForm.Add(button14);
+            buttonsOnForm.Add(button15);
+        }
+
+
     }
 }
